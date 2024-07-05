@@ -5,11 +5,10 @@ from utils import load_data_from_json
 from itertools import combinations
 import argparse
 
-
 def find_minimal_identifiers(data: List[Dict]) -> str:
     """
     Находит минимальный набор признаков для идентификации сущностей,
-    учитывая комбинации признаков.
+    учитывая комбинации признаков и отстутствие ключей как 'null'.
 
     Args:
         data: Список словарей, представляющих сущности и их признаки.
@@ -18,32 +17,28 @@ def find_minimal_identifiers(data: List[Dict]) -> str:
         Строка в формате CSV, содержащая имена идентифицирующих признаков.
     """
 
-    all_attributes = list(data[0].keys())  # Получаем список всех признаков
+    all_attributes = list(data[0].keys())
     num_entities = len(data)
 
-    # Проверяем комбинации признаков, начиная с одиночных
     for r in range(1, len(all_attributes) + 1):
         for subset in combinations(all_attributes, r):
             temp_dict = {}
             for entity in data:
-                try:  # <-- Добавляем блок try...except
-                    key = tuple(entity[attr] for attr in subset)
-                except KeyError:
-                    continue  # Пропускаем сущность, если ключа нет
+                key = tuple(entity.get(attr, None) for attr in subset) 
 
                 if key not in temp_dict:
                     temp_dict[key] = 1
                 else:
                     temp_dict[key] += 1
 
-            # Если все ключи уникальны
-            if len(temp_dict) == num_entities:  
+            if len(temp_dict) == num_entities:
                 output = io.StringIO()
                 writer = csv.writer(output)
                 writer.writerow(subset)
-                return output.getvalue() 
+                return output.getvalue()
 
-    return ""  # Возвращаем пустую строку, если комбинаций не найдено
+    return ""
+
 
 def main(file_path: str = None) -> str:
     """
