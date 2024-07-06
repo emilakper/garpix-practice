@@ -22,22 +22,13 @@ def find_minimal_identifiers(data: List[Dict]) -> str:
 
     for r in range(1, len(all_attributes) + 1):
         for subset in combinations(all_attributes, r):
-            temp_dict = {}
+            seen_combinations = set()  # Множество для быстрой проверки уникальности
             for entity in data:
-                key = tuple(entity.get(attr, None) for attr in subset) 
-
-                if key not in temp_dict:
-                    temp_dict[key] = 1
-                else:
-                    temp_dict[key] += 1
-
-            if len(temp_dict) == num_entities:
-                output = io.StringIO()
-                writer = csv.writer(output)
-                writer.writerow(subset)
-                return output.getvalue()
-
-    return ""
+                key = tuple(entity.get(attr) for attr in subset)
+                seen_combinations.add(key)
+            if len(seen_combinations) == num_entities:
+                return ",".join(subset)
+    return "" 
 
 
 def main(file_path: str = None) -> str:
