@@ -1,0 +1,80 @@
+[
+  {
+    "name": "Apple",
+    "type": "Fruit",
+    "color": "Red",
+    "size": "Medium",
+    "taste": "Sweet"
+  },
+  {
+    "name": "Banana",
+    "type": "Fruit",
+    "color": "Yellow",
+    "size": "Medium",
+    "taste": "Sweet"
+  },
+  {
+    "name": "Strawberry",
+    "type": "Fruit",
+    "color": "Red",
+    "size": "Small",
+    "taste": "Sweet"
+  },
+  {
+    "name": "Tomato",
+    "type": "Vegetable",
+    "color": "Red",
+    "size": "Medium",
+    "taste": "Savory"
+  },
+  {
+    "name": "Carrot",
+    "type": "Vegetable",
+    "color": "Orange",
+    "size": "Medium",
+    "taste": "Sweet"
+  },
+  {
+    "name": "Broccoli",
+    "type": "Vegetable",
+    "color": "Green",
+    "size": "Medium",
+    "taste": "Savory"
+  },
+  {
+    "name": "Watermelon",
+    "type": "Fruit",
+    "color": "Green",
+    "size": "Large",
+    "taste": "Sweet",
+    "country": "Turkey"
+  },
+  {
+    "name": "Lime",
+    "type": "Fruit",
+    "color": "Green",
+    "size": "Small",
+    "taste": "Sour"
+  },
+  {
+      "name": "Apple",
+      "type": "Fruit",
+      "color": "Green",
+      "size": "Small",
+      "taste": "Sour"
+    },
+    {
+      "name": "Grape",
+      "type": "Fruit",
+      "color": "Green",
+      "size": "Small",
+      "taste": "Sweet"
+    },
+    {
+      "name": "Pepper",
+      "type": "Vegetable",
+      "color": "Green",
+      "size": "Medium",
+      "taste": "Savory"
+    }
+]

@@ -1,9 +1,8 @@
-import csv
-import io
 from typing import List, Dict
-from utils import load_data_from_json
+from core.utils import load_data_from_json, get_attribute_frequency
 from itertools import combinations
 import argparse
+
 
 def find_minimal_identifiers(data: List[Dict]) -> str:
     """
@@ -17,18 +16,21 @@ def find_minimal_identifiers(data: List[Dict]) -> str:
         Строка в формате CSV, содержащая имена идентифицирующих признаков.
     """
 
-    all_attributes = list(data[0].keys())
     num_entities = len(data)
 
-    for r in range(1, len(all_attributes) + 1):
-        for subset in combinations(all_attributes, r):
-            seen_combinations = set()  # Множество для быстрой проверки уникальности
+    # Получаем отсортированный список атрибутов по информативности
+    sorted_attributes = [attr for attr, _ in get_attribute_frequency(data)]
+
+    for r in range(1, len(sorted_attributes) + 1):
+        # Генерируем комбинации, начиная с самых информативных атрибутов
+        for subset in combinations(sorted_attributes, r):
+            seen_combinations = set()
             for entity in data:
                 key = tuple(entity.get(attr) for attr in subset)
                 seen_combinations.add(key)
             if len(seen_combinations) == num_entities:
                 return ",".join(subset)
-    return "" 
+    return ""
 
 
 def main(file_path: str = None) -> str:
@@ -48,6 +50,7 @@ def main(file_path: str = None) -> str:
 
     result = find_minimal_identifiers(data)
     return result
+
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()

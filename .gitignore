@@ -1,1 +1,8 @@
 __pycache__/
+.bandit
+.coverage
+.flake8
+.coveragerc
+lighthouserc.json
+radon.cfg
+testcaserc.json
