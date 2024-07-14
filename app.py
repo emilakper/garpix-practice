@@ -2,6 +2,7 @@ from typing import List, Dict
 from core.utils import load_data_from_json, get_attribute_frequency
 from itertools import combinations
 import argparse
+import csv
 
 
 def find_minimal_identifiers(data: List[Dict]) -> str:
@@ -48,8 +49,15 @@ def main(file_path: str = None) -> str:
     else:
         raise ValueError("JSON-file path must be provided.")
 
-    result = find_minimal_identifiers(data)
-    return result
+    identifiers = find_minimal_identifiers(data)
+    table_data = [[identifier] for identifier in identifiers.split(',')]
+
+    # Сохранение результата в файл result.csv
+    with open('result.csv', 'w', newline='', encoding='utf-8') as csvfile:
+        writer = csv.writer(csvfile)
+        writer.writerows(table_data)
+
+    return identifiers
 
 
 if __name__ == "__main__":
